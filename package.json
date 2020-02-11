@@ -1,0 +1,28 @@
+{
+  "name": "ytsync",
+  "version": "1.0.0",
+  "description": "Syncs viewing of a youtube video between two people",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angdav/ytsync.git"
+  },
+  "author": "angdav",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/angdav/ytsync/issues"
+  },
+  "homepage": "https://github.com/angdav/ytsync#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "engines": {
+	  "node": "8.10.0"
+  }
+}
+
+
