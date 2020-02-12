@@ -9,5 +9,5 @@ express()
     .set('view engine', 'ejs')
     .get('/', function (req, res){
         res.render('index')
-    }
+    })
     .listen(port, () => console.log(`Listening on ${ port }`))
