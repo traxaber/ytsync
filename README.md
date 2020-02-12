@@ -1,3 +1,3 @@
 # ytsync
 
-## Watch a youtube video in sync with someone else
+Watch a youtube video in sync with someone else
