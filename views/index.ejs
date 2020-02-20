@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
@@ -21,7 +21,9 @@
       </div>
     </div>
 
+    <script src="socket.io/socket.io.js"></script>
     <script>
+      var socket = io();
 
       var innerprogbar = document.getElementById("innerprogbar");
       
@@ -83,12 +85,13 @@
       var progressbar = document.getElementById("progressbar");
 
       play.addEventListener("click", function(){
-        console.log("this is happeneing");
         player.playVideo();
+        socket.emit('play', 'client has pressed play');
       });
 
       pause.addEventListener("click", function() {
         player.pauseVideo();
+        socket.emit('pause', 'client has pressed pause');
       });
 
       progressbar.addEventListener("click", function() {
@@ -97,6 +100,14 @@
         innerprogbar.style.width = pos + 'px';
         player.seekTo(pos/1150*player.getDuration());
       });
+
+      socket.on('returnplay', function(msg){
+        player.playVideo();
+      })
+
+      socket.on('returnpause', function(msg){
+        player.pauseVideo();
+      })
 
 
     </script>
