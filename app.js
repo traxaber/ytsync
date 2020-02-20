@@ -26,4 +26,8 @@ io.on('connection', function(socket){
         console.log(msg);
         socket.broadcast.emit('returnpause', 'the server is broadcasting "pause"');
     })
+    socket.on('seek', function(pos){
+        console.log(pos);
+        socket.broadcast.emit('returnseek', pos);
+    })
 });

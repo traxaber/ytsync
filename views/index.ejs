@@ -99,6 +99,7 @@
         var pos = event.pageX - x.left;
         innerprogbar.style.width = pos + 'px';
         player.seekTo(pos/1150*player.getDuration());
+        socket.emit('seek', pos);
       });
 
       socket.on('returnplay', function(msg){
@@ -107,6 +108,10 @@
 
       socket.on('returnpause', function(msg){
         player.pauseVideo();
+      })
+
+      socket.on('returnseek', function(pos){
+        player.seekTo(pos/1150*player.getDuration())
       })
 
 
