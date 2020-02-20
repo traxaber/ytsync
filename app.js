@@ -1,4 +1,3 @@
-
 const express = require('express');
 var app = express();
 const path = require('path');
@@ -6,11 +5,16 @@ const port = process.env.PORT||5000;
 const http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+const url = require('url');
 
 app.use(express.static('public'))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
-app.get('/', function (req, res){ res.render('index') })
+app.get('/', function (req, res){
+    res.render('index', {
+        videoname: req.query.v
+    });
+})
 http.listen(port, () => console.log(`Listening on ${ port }`))
 
 io.on('connection', function(socket){
