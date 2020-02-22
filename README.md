@@ -6,7 +6,7 @@ Watch a youtube video in sync with someone else
 
 https://angdav-ytsync.herokuapp.com/
 
-Add the query string that comes after a given youtube video (i.e. ?v=dQw4w9WgXcQ) to the above link, and anyone who visits the same link can watch the video along with you! Whenever someone play/pauses or seeks the video, the rest of the viewers will sync along with it. 
+Enter a youtube link in the text box, and press enter. All other connected clients will be watching the same video. Any play/pause or seek will be applied to all other clients, allowing for in-sync viewing.
 
 ## Notes
 
