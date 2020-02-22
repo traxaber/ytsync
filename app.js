@@ -34,4 +34,8 @@ io.on('connection', function(socket){
         console.log(pos);
         socket.broadcast.emit('returnseek', pos);
     })
+    socket.on('newlink', function(url){
+        console.log(url);
+        socket.broadcast.emit('returnlink', url);
+    })
 });

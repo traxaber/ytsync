@@ -2,13 +2,14 @@
 <html>
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans|Righteous&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <div id="textwrapper">
-      <input type="text" class="form-control rounded" placeholder="Youtube Link">
+      <input id="linkinput" type="text" class="form-control rounded" placeholder="Youtube Link">
     </div>
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
     <div id="player"></div>
@@ -29,7 +30,7 @@
       var socket = io();
 
       const urlParams = new URLSearchParams(window.location.search);
-      const v = urlParams.get('v') || 'OCe-6UprFGo';
+      var v = 'OCe-6UprFGo';
 
       var innerprogbar = document.getElementById("innerprogbar");
       
@@ -55,8 +56,7 @@
           playerVars: {
             modestbranding: 1,
             controls: 0,
-            disablekb: 1,
-            iv_load_policy: 3
+            disablekb: 1
           }
         });
         setInterval(function() {
@@ -86,9 +86,21 @@
         player.stopVideo();
       }
 
+      function parseLink(url) {
+        if (url.includes(".be")){
+          v = url.split("/").pop();
+        } else {
+          v = url.split("v=")[1];
+        }
+        if (v.length > 0){
+          player.loadVideoById(v);
+        }
+      }
+
       var play = document.getElementById("play");
       var pause = document.getElementById("pause");
       var progressbar = document.getElementById("progressbar");
+      var linkinput = document.getElementById("linkinput");
 
       play.addEventListener("click", function(){
         player.playVideo();
@@ -108,6 +120,13 @@
         socket.emit('seek', pos);
       });
 
+      linkinput.addEventListener("keypress", function(e){
+        if (e.key == "Enter"){
+          parseLink(this.value);
+          socket.emit('newlink', this.value);
+        }
+      });
+
       socket.on('returnplay', function(msg){
         player.playVideo();
       })
@@ -120,6 +139,10 @@
         player.seekTo(pos/1150*player.getDuration())
       })
 
+      socket.on('returnlink', function(url){
+        parseLink(url);
+        linkinput.value = url;
+      })
 
     </script>
   </body>
